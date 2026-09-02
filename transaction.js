@@ -371,3 +371,36 @@ document.addEventListener("DOMContentLoaded", () => {
     loadRecentTransactions();
 
 });
+// ================= DASHBOARD EXPENSE =================
+
+function updateDashboardExpense() {
+
+    const expenseElement = document.getElementById("totalExpense");
+
+    if (!expenseElement) {
+        return;
+    }
+
+    const transactions = getTransactions();
+
+    let totalExpense = 0;
+
+    transactions.forEach(transaction => {
+
+        if (transaction.type === "expense") {
+
+            totalExpense += Number(transaction.amount);
+
+        }
+
+    });
+
+    expenseElement.textContent =
+        "৳ " + totalExpense.toFixed(2);
+}
+// Update dashboard when page loads
+document.addEventListener("DOMContentLoaded", function () {
+
+    updateDashboardExpense();
+
+});
