@@ -952,9 +952,11 @@
 
 <script>
 
-function logoutUser(){
+function logoutUser() {
 
-    window.location.href="login.html";
+    localStorage.removeItem("loggedInUser");
+
+    window.location.href = "login.html";
 
 }
 

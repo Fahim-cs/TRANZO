@@ -37,6 +37,13 @@
         }
 
     </style>
+    <script>
+    const loggedInUser = localStorage.getItem("loggedInUser");
+
+    if (!loggedInUser) {
+        window.location.href = "login.html";
+    }
+</script>
 
 </head>
 
@@ -113,11 +120,10 @@
 
         </p>
 
-        <h2 class="text-5xl font-bold mt-3">
-
-            ৳ 00.00
-
-        </h2>
+       <h3 id="availableBalance"
+        class="text-3xl font-bold mt-2">
+            ৳ 0
+        </h3>
 
         <div class="grid grid-cols-2 gap-5 mt-8">
 

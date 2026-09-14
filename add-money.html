@@ -552,7 +552,7 @@
     </div>
 
 </dialog>
-<script src="js/transaction.js"></script>
+<script src="transaction.js"></script>
 <script>
 
     // Live Deposit Amount Preview
@@ -589,11 +589,30 @@
 
     function showSuccess() {
 
-        addMoneyModal.close();
+    const amount = Number(
+        document.getElementById("depositAmount").value
+    );
 
-        successModal.showModal();
+    const method =
+        document.getElementById("paymentMethod").value;
 
+    if (!amount || amount <= 0) {
+        alert("Please enter a valid amount.");
+        return;
     }
+
+    if (!method || method === "Select a method") {
+        alert("Please select a payment method.");
+        return;
+    }
+
+    addMoney(method, amount);
+
+    addMoneyModal.close();
+
+    successModal.showModal();
+
+}
 
 </script>
 

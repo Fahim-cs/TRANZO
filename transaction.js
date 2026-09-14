@@ -103,14 +103,20 @@ function sendMoney(receiver, amount) {
 // Add Money
 function addMoney(source, amount) {
 
+    const currentUser = getCurrentUser();
+
+    if (!currentUser) {
+        return;
+    }
+
+    const newBalance = Number(currentUser.balance) + Number(amount);
+        
+    updateUserBalance(newBalance);
+
     createTransaction(
-
         "Add Money",
-
         source,
-
         amount
-
     );
 
 }
@@ -402,5 +408,81 @@ function updateDashboardExpense() {
 document.addEventListener("DOMContentLoaded", function () {
 
     updateDashboardExpense();
+
+});
+// ================= BALANCE MANAGEMENT =================
+
+function getCurrentUser() {
+
+    const loggedInUser = JSON.parse(
+        localStorage.getItem("loggedInUser")
+    );
+
+    return loggedInUser;
+}
+
+
+function updateUserBalance(newBalance) {
+
+    const currentUser = getCurrentUser();
+
+    if (!currentUser) {
+        return;
+    }
+
+    currentUser.balance = Number(newBalance);
+
+    localStorage.setItem(
+        "loggedInUser",
+        JSON.stringify(currentUser)
+    );
+
+    // Update users list
+    let users = JSON.parse(
+        localStorage.getItem("users")
+    ) || [];
+
+    const userIndex = users.findIndex(
+        user => user.id === currentUser.id
+    );
+
+    if (userIndex !== -1) {
+
+        users[userIndex].balance =
+            Number(newBalance);
+
+        localStorage.setItem(
+            "users",
+            JSON.stringify(users)
+        );
+    }
+};
+// Update Available Balance
+
+function updateDashboardBalance() {
+
+    const balanceElement =
+        document.getElementById("availableBalance");
+
+    if (!balanceElement) {
+        return;
+    }
+
+    const currentUser = getCurrentUser();
+
+    if (!currentUser) {
+        return;
+    }
+
+    balanceElement.textContent =
+        "৳ " + Number(currentUser.balance).toFixed(2);
+}
+
+
+// Load balance when dashboard opens
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    updateDashboardBalance();
 
 });

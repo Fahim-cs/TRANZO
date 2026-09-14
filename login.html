@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="cupcake">
+    
 
 <head>
     <meta charset="UTF-8">
@@ -39,6 +40,7 @@
             transform: translateY(-4px);
         }
     </style>
+    
 
 </head>
 
@@ -65,7 +67,7 @@
                     Login to your Tranzo account
                 </p>
 
-                <form class="space-y-5">
+              <form id="loginForm" class="space-y-5">
 
                     <!-- Mobile -->
                     <div>
@@ -81,7 +83,8 @@
 
                             <i class="fa-solid fa-phone text-gray-400"></i>
 
-                            <input type="tel"
+                            <input id="phone"
+                             type="tel"
                                 placeholder="017XXXXXXXX"
                                 maxlength="11"
                                 class="grow"
@@ -142,8 +145,7 @@
                     <!-- Login Button -->
 
                     <button
-                        type="button"
-                        onclick="window.location.href='dashboard.html'"
+                        type="submit"
                         class="btn w-full rounded-full text-white border-0 bg-gradient-to-r from-blue-600 to-indigo-700 hover:scale-105 duration-300">
 
                         <i class="fa-solid fa-right-to-bracket"></i>
@@ -186,27 +188,42 @@
     </div>
 
     <script>
+document.getElementById("loginForm").addEventListener("submit", function (e) {
 
-        function togglePassword() {
+    e.preventDefault();
 
-            const password = document.getElementById("password");
-            const eye = document.getElementById("eye");
+    const phone = document.getElementById("phone").value.trim();
+    const password = document.getElementById("password").value;
 
-            if (password.type === "password") {
+    // Get registered users
+    const users = JSON.parse(localStorage.getItem("users")) || [];
 
-                password.type = "text";
-                eye.classList.replace("fa-eye", "fa-eye-slash");
+    // Find matching user
+    const user = users.find(function (account) {
+        return account.phone === phone &&
+               account.password === password;
+    });
 
-            } else {
+    // Invalid login
+    if (!user) {
+        alert("Invalid mobile number or password.");
+        return;
+    }
 
-                password.type = "password";
-                eye.classList.replace("fa-eye-slash", "fa-eye");
+    // Check account status
+    if (user.status !== "Active") {
+        alert("Your account is not active.");
+        return;
+    }
 
-            }
+    // Save logged-in user
+    localStorage.setItem("loggedInUser", JSON.stringify(user));
 
-        }
+    // Go to dashboard
+    window.location.href = "dashboard.html";
 
-    </script>
+});
+</script>
 
 </body>
 
