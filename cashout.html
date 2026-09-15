@@ -592,7 +592,7 @@
     </div>
 
 </dialog>
-<script src="js/transaction.js"></script>
+<script src="transaction.js"></script>
 <script>
 
     // Live Amount & Charge Calculation
@@ -652,11 +652,41 @@
 
     function showSuccess() {
 
-        cashoutModal.close();
+    const amount =
+        Number(document.getElementById("cashoutAmount").value);
 
-        successModal.showModal();
+    const agent =
+        document.getElementById("agentType").value;
 
+    const agentNumber =
+        document.getElementById("agentNumber").value.trim();
+
+    if (!amount || amount <= 0) {
+        alert("Please enter a valid amount.");
+        return;
     }
+
+    if (!agent || agent === "Choose Agent") {
+        alert("Please select an agent.");
+        return;
+    }
+
+    if (!agentNumber) {
+        alert("Please enter agent number.");
+        return;
+    }
+
+    const success = cashOut(agent, amount);
+
+    if (!success) {
+        return;
+    }
+
+    cashoutModal.close();
+
+    successModal.showModal();
+
+}
 
 </script>
 

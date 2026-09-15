@@ -88,16 +88,31 @@ function createTransaction(
 
 function sendMoney(receiver, amount) {
 
+    const currentUser = getCurrentUser();
+
+    if (!currentUser) {
+        return;
+    }
+
+    const currentBalance = Number(currentUser.balance);
+    const sendAmount = Number(amount);
+
+    if (sendAmount > currentBalance) {
+        alert("You don't have enough balance.");
+        return false;
+    }
+
+    const newBalance = currentBalance - sendAmount;
+
+    updateUserBalance(newBalance);
+
     createTransaction(
-
         "Send Money",
-
         receiver,
-
-        amount
-
+        sendAmount
     );
 
+    return true;
 }
 
 // Add Money
@@ -125,16 +140,31 @@ function addMoney(source, amount) {
 
 function cashOut(agent, amount) {
 
+    const currentUser = getCurrentUser();
+
+    if (!currentUser) {
+        return;
+    }
+
+    const currentBalance = Number(currentUser.balance);
+    const cashoutAmount = Number(amount);
+
+    if (cashoutAmount > currentBalance) {
+        alert("You don't have enough balance.");
+        return false;
+    }
+
+    const newBalance = currentBalance - cashoutAmount;
+
+    updateUserBalance(newBalance);
+
     createTransaction(
-
         "Cash Out",
-
         agent,
-
-        amount
-
+        cashoutAmount
     );
 
+    return true;
 }
 
 // Money Transfer
@@ -172,16 +202,37 @@ function payBill(company, amount) {
 
 function mobileRecharge(number, amount) {
 
+    const currentUser = getCurrentUser();
+
+    if (!currentUser) {
+        return;
+    }
+
+    const currentBalance = Number(currentUser.balance);
+    const rechargeAmount = Number(amount);
+
+    if (rechargeAmount > 500) {
+        alert("You cannot recharge more than ৳500 at once.");
+        return false;
+    }
+
+    if (rechargeAmount > currentBalance) {
+        alert("You don't have enough balance.");
+        return false;
+    }
+
+    const newBalance =
+        currentBalance - rechargeAmount;
+
+    updateUserBalance(newBalance);
+
     createTransaction(
-
         "Mobile Recharge",
-
         number,
-
-        amount
-
+        rechargeAmount
     );
 
+    return true;
 }
 
 // Generate Transaction ID
@@ -381,23 +432,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function updateDashboardExpense() {
 
-    const expenseElement = document.getElementById("totalExpense");
+    const expenseElement =
+        document.getElementById("totalExpense");
 
     if (!expenseElement) {
         return;
     }
 
-    const transactions = getTransactions();
+    const expenses =
+        JSON.parse(localStorage.getItem("expenses")) || [];
 
     let totalExpense = 0;
 
-    transactions.forEach(transaction => {
+    expenses.forEach(expense => {
 
-        if (transaction.type === "expense") {
-
-            totalExpense += Number(transaction.amount);
-
-        }
+        totalExpense += Number(expense.amount);
 
     });
 

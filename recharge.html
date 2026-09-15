@@ -704,7 +704,7 @@
     </div>
 
 </dialog>
-<script src="js/transaction.js"></script>
+<script src="transaction.js"></script>
 <script>
     // Live Recharge Amount
 
@@ -781,11 +781,54 @@
   
     function showSuccess() {
 
-        rechargeModal.close();
+    const number =
+        document.getElementById("mobileNumber").value.trim();
 
-        successModal.showModal();
+    const operator =
+        document.getElementById("operator").value;
 
+    const type =
+        document.getElementById("rechargeType").value;
+
+    const amount =
+        Number(document.getElementById("rechargeAmount").value);
+
+    if (!number) {
+        alert("Please enter mobile number.");
+        return;
     }
+
+    if (!operator || operator === "Select Operator") {
+        alert("Please select mobile operator.");
+        return;
+    }
+
+    if (!type || type === "Select Type") {
+        alert("Please select recharge type.");
+        return;
+    }
+
+    if (!amount || amount <= 0) {
+        alert("Please enter a valid recharge amount.");
+        return;
+    }
+
+    if (amount > 500) {
+        alert("You cannot recharge more than ৳500 at once.");
+        return;
+    }
+
+    const success = mobileRecharge(number, amount);
+
+    if (!success) {
+        return;
+    }
+
+    rechargeModal.close();
+
+    successModal.showModal();
+
+}
 
 </script>
 
