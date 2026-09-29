@@ -6,17 +6,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>TRANZO | Cash Out</title>
+    <title>TRANZO | View All</title>
 
     <link rel="icon" href="assets/logo.png" type="image/png">
-
-    <!-- DaisyUI + Tailwind -->
 
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet">
 
     <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- Google Font -->
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
 
@@ -25,28 +21,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
 
-    <!-- Font Awesome -->
-
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <style>
 
-        *{
+        * {
             font-family: "Outfit", sans-serif;
         }
 
-        body{
-            background: linear-gradient(135deg,#eef5ff,#dbeafe,#eef2ff);
-        }
-
-        .tranzo-card{
-            border-radius:28px;
-            transition:.3s;
-        }
-
-        .tranzo-card:hover{
-            transform:translateY(-4px);
+        body {
+            background: linear-gradient(135deg, #eef5ff, #dbeafe, #eef2ff);
+            min-height: 100vh;
         }
 
     </style>
@@ -54,28 +40,40 @@
 </head>
 
 <body>
-    <div class="grid grid-cols-2 lg:grid-cols-3 gap-5">
-        <!-- Expense -->
+
+    <div class="min-h-screen flex items-center justify-center p-6">
+
+        <div class="w-full max-w-5xl">
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+
+                <!-- Expense -->
 
                 <a href="expense.html"
-                     class="bg-white rounded-3xl shadow-md hover:shadow-xl hover:-translate-y-1 duration-300 p-6 text-center border border-base-200">
+                    class="bg-white rounded-3xl shadow-md hover:shadow-xl hover:-translate-y-1 duration-300 p-6 text-center border border-base-200">
 
                     <div class="w-16 h-16 mx-auto rounded-full bg-red-100 flex items-center justify-center">
 
-                    <i class="fa-solid fa-receipt text-2xl text-red-600"></i>
+                        <i class="fa-solid fa-receipt text-2xl text-red-600"></i>
 
-             </div>
+                    </div>
 
-                <h3 class="font-bold text-lg mt-4">
-                Expense
-            </h3>
+                    <h3 class="font-bold text-lg mt-4">
+                        Expense
+                    </h3>
 
-             <p class="text-sm text-gray-500 mt-1">
-                Track your expenses
-            </p>
+                    <p class="text-sm text-gray-500 mt-1">
+                        Track your expenses
+                    </p>
 
-        </a>
-     </div>
-     
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
 </body>
+
 </html>
